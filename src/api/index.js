@@ -2,12 +2,14 @@ import axios from "axios";
 
 // CORS Proxies  https://api.allorigins.win
 
-export function searchLocation(location) {
+export function searchLocation(locationString) {
   let url;
-  if (typeof location === "string") {
-    url = `https://www.metaweather.com/api/location/search/?query=${location}`;
+  const parts = locationString.split(",");
+  if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+    //check if it is a lattlong string
+    url = `https://www.metaweather.com/api/location/search/?lattlong=${locationString}`;
   } else {
-    url = `https://www.metaweather.com/api/location/search/?lattlong=${location.latitude},${location.longitude}`;
+    url = `https://www.metaweather.com/api/location/search/?query=${locationString}`;
   }
   return axios
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)

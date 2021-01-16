@@ -22,8 +22,9 @@ function App() {
   useEffect(() => {
     getGeolocation
       .then((geolocation) => {
-        setLocation(`${geolocation.latitude},${geolocation.longitude}`);
-        getInfoByLocation(geolocation);
+        const locationString = `${geolocation.latitude},${geolocation.longitude}`;
+        setLocation(locationString);
+        getInfoByLocation(locationString);
       })
       .catch((err) => console.log(err));
   }, []);
