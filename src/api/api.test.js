@@ -4,6 +4,7 @@ describe("test searchLocation", () => {
   beforeEach(() => {
     jest.setTimeout(30000);
   });
+
   it("searchLocation with string input", () => {
     expect(async () => await searchLocation("syd")).not.toThrow();
   });
