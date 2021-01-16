@@ -11,12 +11,14 @@ export function searchLocation(location) {
   }
   return axios
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-    .then((res) => res.data.contents);
+    .then((res) => res.data.contents)
+    .then((content) => JSON.parse(content));
 }
 
 export function getWeathersByWoeid(woeid) {
   const url = `https://www.metaweather.com/api/location/${woeid}/`;
   return axios
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-    .then((res) => res.data.contents);
+    .then((res) => res.data.contents)
+    .then((content) => JSON.parse(content));
 }
