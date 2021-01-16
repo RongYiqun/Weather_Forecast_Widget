@@ -1,12 +1,14 @@
 import { TextField } from "@material-ui/core";
 
-export default function LocationInput() {
+export default function LocationInput({ location, setLocation }) {
   return (
     <TextField
       id="outlined-textarea"
       label="Your Location"
-      placeholder="please input your coordinate or your city"
+      placeholder="Please input your coordinate or your city"
       variant="outlined"
+      value={location}
+      onChange={(event) => setLocation(event.target.value)}
       fullWidth
     />
   );

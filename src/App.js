@@ -5,9 +5,9 @@ import TodayWeather from "./components/TodayWeather";
 import FutureWeatherList from "./components/FutureWeatherList";
 
 function App() {
-  const [location, setLocation] = useState(); //input location
-  const [weatherInfo, setWeatherInfo] = useState(); // returned weather info
-  const [locationInfo, setLocationInfo] = useState(); // returned location info
+  const [location, setLocation] = useState(""); //input location
+  const [weatherInfo, setWeatherInfo] = useState(null); // returned weather info
+  const [locationInfo, setLocationInfo] = useState(null); // returned location info
 
   const getInfoByLocation = (location) => {
     getWeatherInfo(location)
@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     getGeolocation
       .then((geolocation) => {
-        setLocation(geolocation);
+        setLocation(`${geolocation.latitude},${geolocation.longitude}`);
         getInfoByLocation(geolocation);
       })
       .catch((err) => console.log(err));
@@ -34,8 +34,8 @@ function App() {
 
   return (
     <div className="App">
-      <LocationInput />
-      {weatherInfo && (
+      <LocationInput location={location} setLocation={setLocation} />
+      {weatherInfo && locationInfo && (
         <TodayWeather
           todayWeatherInfo={weatherInfo[0]}
           locationInfo={locationInfo}
