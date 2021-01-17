@@ -6,6 +6,7 @@ import FutureWeatherList from "./components/FutureWeatherList";
 
 function App() {
   const [location, setLocation] = useState(""); //input location
+  const [woeid, setWoeid] = useState(null);
   const [weatherInfo, setWeatherInfo] = useState(null); // returned weather info
   const [locationInfo, setLocationInfo] = useState(null); // returned location info
 

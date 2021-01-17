@@ -1,47 +1,69 @@
-import { TextField, InputAdornment, Container } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-import SearchIcon from "@material-ui/icons/Search";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import throttle from "lodash/throttle";
+import { TextField, Container } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { searchLocation } from "../api";
 
-// const useStyles = makeStyles((theme) => ({
-//   margin: {
-//     margin: theme.spacing(1),
-//   },
-// }));
+export default function LocationInput() {
+  const [inputLocation, setInputLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = React.useState("");
+  const [locationOptions, setLocationOptions] = React.useState([]);
+  const loading = React.useRef(false);
 
-export default function LocationInput({ location, setLocation }) {
-  //   const classes = useStyles();
-  const [inputLocation, setInputLocation] = useState();
+  const fetchLocationOptions = async () => {
+    loading.current = true;
+    try {
+      const listOflocation = await searchLocation(inputLocation);
+      setLocationOptions(listOflocation);
+      loading.current = false;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    setInputLocation(location);
-  }, [location]);
+    if (inputLocation) {
+      fetchLocationOptions();
+      console.log("locationOptions", locationOptions);
+    }
+  }, [inputLocation]);
 
   return (
     <Container maxWidth="sm">
-      <TextField
-        id="outlined-textarea"
-        label="Enter Location"
-        placeholder="Please input your coordinate or your city"
-        variant="outlined"
-        value={inputLocation}
-        fullWidth
-        onChange={(event) => setInputLocation(event.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment
-              position="start"
-              onClick={() => setLocation(inputLocation)}
-            >
-              <SearchIcon />
-            </InputAdornment>
-          ),
+      <Autocomplete
+        options={locationOptions}
+        getOptionLabel={(option) =>
+          typeof option === "string" ? option : option.title
+        }
+        getOptionSelected={(option, value) => option.title === value.title}
+        value={selectedLocation}
+        onChange={(event, newLocation) => {
+          setSelectedLocation(newLocation);
+          console.log("newLocation", newLocation);
         }}
-        onKeyUp={(event) => {
-          if (event.key === "Enter") {
-            setLocation(inputLocation);
-          }
+        onInputChange={(event, inputLocation) => {
+          setInputLocation(inputLocation);
         }}
+        filterOptions={(options, state) => options}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Please input your coordinate or your city"
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading.current ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
       />
     </Container>
   );
