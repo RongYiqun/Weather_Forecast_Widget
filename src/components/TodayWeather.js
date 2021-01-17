@@ -3,7 +3,7 @@ import { formateDate } from "../util";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
     maxHeight: "350px",
   },
   paper: {
