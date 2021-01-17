@@ -4,6 +4,8 @@ import LocationInput from "./components/LocationInput";
 import TodayWeather from "./components/TodayWeather";
 import FutureWeatherList from "./components/FutureWeatherList";
 import { getWeathersByWoeid, searchLocation } from "./api";
+import Loading from "./components/Loading";
+import { Container } from "@material-ui/core";
 
 function App() {
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -45,10 +47,13 @@ function App() {
 
   return (
     <div className="App">
-      <LocationInput
-        selectedLocation={selectedLocation}
-        setSelectedLocation={setSelectedLocation}
-      />
+      <Container maxWidth="md">
+        <LocationInput
+          selectedLocation={selectedLocation}
+          setSelectedLocation={setSelectedLocation}
+        />
+        {!weatherInfo && <Loading />}
+      </Container>
       {weatherInfo && locationInfo && (
         <TodayWeather
           todayWeatherInfo={weatherInfo[0]}
