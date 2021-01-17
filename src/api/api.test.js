@@ -17,7 +17,7 @@ describe("test searchLocation", () => {
       const l = await searchLocation(
         `${locationObject.latitude},${locationObject.longitude}`
       );
-      console.log(l);
+      // console.log(l);
       done();
     }).not.toThrow();
   });
@@ -30,7 +30,7 @@ describe("test getWeathersByWoeid", () => {
   it("getWeathersByWoeid with valid Woeid", (done) => {
     expect(async () => {
       const l = await getWeathersByWoeid(1105779);
-      console.log(l);
+      // console.log(l);
       done();
     }).not.toThrow();
   });

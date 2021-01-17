@@ -1,4 +1,5 @@
 import { searchLocation, getWeathersByWoeid } from "../api";
+import moment from "moment";
 
 export const getGeolocation = new Promise(function (resolve) {
   const options = {
@@ -20,7 +21,12 @@ export const getGeolocation = new Promise(function (resolve) {
 
 export async function getWeatherInfo(location) {
   const listOflocation = await searchLocation(location);
+  console.log("listOflocation", listOflocation);
   const closest = listOflocation[0];
   const closestWoeid = closest.woeid;
   return await getWeathersByWoeid(closestWoeid);
+}
+
+export function formateDate(dateString) {
+  return moment(dateString).format("LL");
 }

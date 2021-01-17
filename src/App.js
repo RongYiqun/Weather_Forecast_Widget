@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getGeolocation, getWeatherInfo } from "./util/geolocation";
+import { getGeolocation, getWeatherInfo } from "./util";
 import LocationInput from "./components/LocationInput";
 import TodayWeather from "./components/TodayWeather";
 import FutureWeatherList from "./components/FutureWeatherList";

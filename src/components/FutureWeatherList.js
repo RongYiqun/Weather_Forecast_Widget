@@ -6,7 +6,7 @@ import FutureWeather from "./FutureWeather";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: 0,
+    marginTop: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(0),

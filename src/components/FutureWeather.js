@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { formateDate } from "../util";
 
 const useStyles = makeStyles({
   //   root: {
@@ -28,8 +29,8 @@ export default function FutureWeather({ dayWeatherInfo }) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h2" align="center">
-          {applicable_date}
+        <Typography variant="h5" component="h2" align="center">
+          {formateDate(applicable_date)}
         </Typography>
       </CardContent>
       <CardMedia>
@@ -40,7 +41,7 @@ export default function FutureWeather({ dayWeatherInfo }) {
         />
       </CardMedia>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h2" align="center">
+        <Typography variant="h5" component="h2" align="center">
           {weather_state_name}
         </Typography>
         <Typography
@@ -49,15 +50,7 @@ export default function FutureWeather({ dayWeatherInfo }) {
           component="p"
           align="center"
         >
-          {`${Math.round(max_temp)}°C`}
-        </Typography>
-        <Typography
-          variant="body1"
-          color="textSecondary"
-          component="p"
-          align="center"
-        >
-          {`${Math.round(min_temp)}°C`}
+          {`${Math.round(min_temp)}°C ~ ${Math.round(max_temp)}°C`}
         </Typography>
         <Typography
           variant="body1"

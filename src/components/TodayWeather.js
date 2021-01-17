@@ -1,26 +1,26 @@
 import { Grid, Typography, makeStyles } from "@material-ui/core";
+import { formateDate } from "../util";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
     marginTop: theme.spacing(1),
+    maxHeight: "350px",
   },
   paper: {
-    padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
   img: {
-    height: "70%",
-    width: "70%",
+    height: "65%",
+    width: "65%",
     display: "block",
     margin: "auto",
-    marginTop: "",
   },
 }));
 
 export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
   console.log("todayWeatherInfo", todayWeatherInfo);
+  console.log("locationInfo", locationInfo);
   const {
     weather_state_abbr,
     weather_state_name,
@@ -30,18 +30,32 @@ export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
     applicable_date,
   } = todayWeatherInfo;
   const classes = useStyles();
+
+  const formateLocation = () => {
+    const parentTitle = locationInfo?.parent?.title;
+    if (parentTitle) {
+      return locationInfo.title + "," + parentTitle;
+    } else {
+      return locationInfo.title;
+    }
+  };
+
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <Typography gutterBottom variant="h1" component="h1" align="center">
-            {locationInfo.title}
+          <Typography
+            variant="h4"
+            component="p"
+            align="center"
+            color="textSecondary"
+          >
+            {formateDate(applicable_date)}
           </Typography>
-          <Typography gutterBottom variant="h3" component="p" align="center">
-            {applicable_date}
+          <Typography variant="h3" component="p" align="center">
+            {formateLocation()}
           </Typography>
           <Typography
-            gutterBottom
             variant="h3"
             component="p"
             color="textSecondary"
@@ -55,15 +69,7 @@ export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
             component="p"
             align="center"
           >
-            {`${Math.round(min_temp)}°C`}
-          </Typography>
-          <Typography
-            variant="h3"
-            color="textSecondary"
-            component="p"
-            align="center"
-          >
-            {`${Math.round(max_temp)}°C`}
+            {`${Math.round(min_temp)}°C`} ~ {`${Math.round(max_temp)}°C`}
           </Typography>
           <Typography
             variant="h3"
