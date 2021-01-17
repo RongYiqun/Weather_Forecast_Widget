@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-// import throttle from "lodash/throttle";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import debounce from "lodash.debounce";
 import { TextField, Container } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -13,19 +13,23 @@ export default function LocationInput({
   const [locationOptions, setLocationOptions] = useState([]);
   const loading = useRef(false);
 
-  const fetchLocationOptions = async () => {
-    try {
-      const listOflocation = await searchLocation(inputLocation);
-      setLocationOptions(listOflocation);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const fetchLocationOptions = useCallback(
+    debounce(async (inputLocation) => {
+      try {
+        const listOflocation = await searchLocation(inputLocation);
+        console.log(listOflocation);
+        setLocationOptions(listOflocation);
+      } catch (err) {
+        console.log(err);
+      }
+    }, 200),
+    []
+  );
 
   useEffect(() => {
     if (inputLocation) {
       loading.current = true;
-      fetchLocationOptions();
+      fetchLocationOptions(inputLocation);
       loading.current = false;
     }
   }, [inputLocation]);
@@ -41,7 +45,6 @@ export default function LocationInput({
         value={selectedLocation}
         onChange={(event, newLocation) => {
           setSelectedLocation(newLocation);
-          console.log("newLocation", newLocation);
         }}
         onInputChange={(event, inputLocation) => {
           setInputLocation(inputLocation);
