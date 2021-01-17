@@ -18,7 +18,6 @@ function App() {
         const listOflocation = await searchLocation(locationString);
         // console.log("listOflocation", listOflocation);
         const closest = listOflocation[0];
-        setSelectedLocation(closest);
         const data = await getWeathersByWoeid(closest.woeid);
         const { consolidated_weather, ...otherInfo } = data;
         setWeatherInfo(consolidated_weather);

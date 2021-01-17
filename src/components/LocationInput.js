@@ -49,6 +49,13 @@ export default function LocationInput({
         onInputChange={(event, inputLocation) => {
           setInputLocation(inputLocation);
         }}
+        onKeyPress={(event) => {
+          if (event.key === "Enter") {
+            if (locationOptions.length > 0) {
+              setSelectedLocation(locationOptions[0]);
+            }
+          }
+        }}
         filterOptions={(options, state) => options}
         renderInput={(params) => (
           <TextField
