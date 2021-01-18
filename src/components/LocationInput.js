@@ -15,28 +15,28 @@ export default function LocationInput({
 
   const fetchLocationOptions = useCallback(
     debounce(async (inputLocation) => {
+      loading.current = true;
       try {
         const listOflocation = await searchLocation(inputLocation);
-        console.log(listOflocation);
         setLocationOptions(listOflocation);
       } catch (err) {
         console.log(err);
       }
+      loading.current = false;
     }, 200),
     []
   );
 
   useEffect(() => {
     if (inputLocation) {
-      loading.current = true;
       fetchLocationOptions(inputLocation);
-      loading.current = false;
     }
   }, [inputLocation]);
 
   return (
     <Container maxWidth="sm">
       <Autocomplete
+        data-testid="autocomplete"
         options={locationOptions}
         getOptionLabel={(option) =>
           typeof option === "string" ? option : option.title
