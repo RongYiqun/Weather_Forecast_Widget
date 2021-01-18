@@ -15,10 +15,9 @@ function App() {
   useEffect(() => {
     const fetchWeatherByGeolocation = async () => {
       try {
-        const geolocation = await getGeolocation;
+        const geolocation = await getGeolocation();
         const locationString = `${geolocation.latitude},${geolocation.longitude}`;
         const listOflocation = await searchLocation(locationString);
-        // console.log("listOflocation", listOflocation);
         const closest = listOflocation[0];
         const data = await getWeathersByWoeid(closest.woeid);
         const { consolidated_weather, ...otherInfo } = data;

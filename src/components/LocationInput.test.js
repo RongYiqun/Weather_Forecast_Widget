@@ -4,7 +4,6 @@ import {
   waitFor,
   within,
   screen,
-  wait,
 } from "@testing-library/react";
 import LocationInput from "./LocationInput";
 import "@testing-library/jest-dom/extend-expect";
@@ -15,7 +14,7 @@ describe("test LocationInput", () => {
     jest.resetModules();
   });
 
-  it("render", async () => {
+  it("render with user input", async () => {
     let mockSelectedLocation = "";
     const mockSetSelectedLocation = jest.fn((location) => {
       mockSelectedLocation = location;
