@@ -2,7 +2,7 @@ import { searchLocation, getWeathersByWoeid } from "./index";
 
 describe("test searchLocation", () => {
   beforeEach(() => {
-    jest.setTimeout(30000);
+    jest.setTimeout(50000);
   });
 
   it("searchLocation with city name string input", () => {
@@ -14,10 +14,10 @@ describe("test searchLocation", () => {
       longitude: 151.20076665634,
     };
     expect(async () => {
-      const l = await searchLocation(
+      const result = await searchLocation(
         `${locationObject.latitude},${locationObject.longitude}`
       );
-      // console.log(l);
+      expect("length" in result).toBe(true);
       done();
     }).not.toThrow();
   });
@@ -29,8 +29,8 @@ describe("test getWeathersByWoeid", () => {
   });
   it("getWeathersByWoeid with valid Woeid", (done) => {
     expect(async () => {
-      const l = await getWeathersByWoeid(1105779);
-      // console.log(l);
+      const result = await getWeathersByWoeid(1105779);
+      expect("consolidated_weather" in result).toBe(true);
       done();
     }).not.toThrow();
   });

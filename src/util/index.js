@@ -1,4 +1,3 @@
-import { searchLocation, getWeathersByWoeid } from "../api";
 import moment from "moment";
 
 export const getGeolocation = new Promise(function (resolve) {
