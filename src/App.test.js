@@ -42,7 +42,7 @@ describe("test App", () => {
     await waitFor(() => expect(util.getGeolocation).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(api.searchLocation).toHaveBeenCalledTimes(1));
     await waitFor(() =>
-      expect(api.getWeathersByWoeid).toHaveBeenCalledTimes(2)
+      expect(api.getWeathersByWoeid).toHaveBeenCalledTimes(1)
     );
     const weatherToday = screen.getByText("January 18, 2021");
     const weatherFuture1 = screen.getByText("January 19, 2021");
@@ -87,7 +87,7 @@ describe("test App", () => {
     fireEvent.keyDown(autocomplete, { key: "ArrowDown" });
     fireEvent.keyDown(autocomplete, { key: "Enter" });
     await waitFor(() =>
-      expect(api.getWeathersByWoeid).toHaveBeenCalledTimes(2)
+      expect(api.getWeathersByWoeid).toHaveBeenCalledTimes(1)
     );
     const weatherToday = screen.getByText("January 18, 2021");
     const weatherFuture1 = screen.getByText("January 19, 2021");

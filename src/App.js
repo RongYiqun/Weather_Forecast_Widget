@@ -41,7 +41,9 @@ function App() {
         console.log(err);
       }
     };
-    fetchWeatherByWoeid();
+    if (selectedLocation) {
+      fetchWeatherByWoeid();
+    }
   }, [selectedLocation]);
 
   return (
