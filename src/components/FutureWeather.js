@@ -4,9 +4,6 @@ import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import { formateDate } from "../util";
 
 const useStyles = makeStyles({
-  //   root: {
-  //     maxWidth: 345,
-  //   },
   img: {
     height: "50%",
     width: "50%",
@@ -27,7 +24,7 @@ export default function FutureWeather({ dayWeatherInfo }) {
   } = dayWeatherInfo;
 
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardContent>
         <Typography variant="h5" component="h2" align="center">
           {formateDate(applicable_date)}
@@ -35,7 +32,7 @@ export default function FutureWeather({ dayWeatherInfo }) {
       </CardContent>
       <CardMedia>
         <img
-          alt="weather_state_abbr"
+          alt={`weather status ${weather_state_abbr}`}
           className={classes.img}
           src={`/weatherIcons/${weather_state_abbr}.svg`}
         />

@@ -60,7 +60,7 @@ export default function LocationInput({
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Please input your coordinate or your city"
+            label="Please input your coordinate or your city for weather information"
             variant="outlined"
             InputProps={{
               ...params.InputProps,

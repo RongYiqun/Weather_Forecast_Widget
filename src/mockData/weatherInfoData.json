@@ -1,0 +1,48 @@
+{
+    "weatherInfo": [
+        {
+            "id": 6353827415457792,
+            "weather_state_name": "Heavy Rain",
+            "weather_state_abbr": "hr",
+            "wind_direction_compass": "SW",
+            "applicable_date": "2021-01-19",
+            "min_temp": 7.995000000000001,
+            "max_temp": 11.524999999999999,
+            "the_temp": 11.02,
+            "wind_speed": 12.91816819981707
+        },
+        {
+            "id": 6669214447304704,
+            "weather_state_name": "Heavy Rain",
+            "weather_state_abbr": "hr",
+            "wind_direction_compass": "SSW",
+            "applicable_date": "2021-01-20",
+            "min_temp": 9.155000000000001,
+            "max_temp": 11.82,
+            "the_temp": 10.25,
+            "wind_speed": 14.56472562018081
+        },
+        {
+            "id": 6062503793524736,
+            "weather_state_name": "Light Rain",
+            "weather_state_abbr": "lr",
+            "wind_direction_compass": "WSW",
+            "applicable_date": "2021-01-21",
+            "min_temp": 5.03,
+            "max_temp": 10.305,
+            "the_temp": 8.265,
+            "wind_speed": 12.405835007858109
+        },
+        {
+            "id": 5831442740281344,
+            "weather_state_name": "Clear",
+            "weather_state_abbr": "c",
+            "wind_direction_compass": "W",
+            "applicable_date": "2021-01-22",
+            "min_temp": 3.46,
+            "max_temp": 7.26,
+            "the_temp": 6.65,
+            "wind_speed": 5.5875570667302945
+        }
+    ]
+}

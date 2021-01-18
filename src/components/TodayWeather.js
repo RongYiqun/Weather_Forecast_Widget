@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
-  console.log("todayWeatherInfo", todayWeatherInfo);
-  console.log("locationInfo", locationInfo);
   const {
     weather_state_abbr,
     weather_state_name,
@@ -28,6 +26,7 @@ export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
     max_temp,
     wind_speed,
     applicable_date,
+    the_temp,
   } = todayWeatherInfo;
   const classes = useStyles();
 
@@ -69,6 +68,14 @@ export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
             component="p"
             align="center"
           >
+            {`${Math.round(the_temp)}°C`}
+          </Typography>
+          <Typography
+            variant="h3"
+            color="textSecondary"
+            component="p"
+            align="center"
+          >
             {`${Math.round(min_temp)}°C`} ~ {`${Math.round(max_temp)}°C`}
           </Typography>
           <Typography
@@ -82,7 +89,7 @@ export default function TodayWeather({ todayWeatherInfo, locationInfo }) {
         </Grid>
         <Grid item xs={6}>
           <img
-            alt="weather_state_abbr"
+            alt={`weather status ${weather_state_abbr}`}
             className={classes.img}
             src={`/weatherIcons/${weather_state_abbr}.svg`}
           />

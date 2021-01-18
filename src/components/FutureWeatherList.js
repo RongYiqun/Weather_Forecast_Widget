@@ -17,21 +17,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FutureWeatherList({ weatherInfo }) {
   const classes = useStyles();
+  const dayWeatherInfoList = weatherInfo.slice(0, 4);
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={6} sm={3}>
-          <FutureWeather dayWeatherInfo={weatherInfo[0]} />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <FutureWeather dayWeatherInfo={weatherInfo[1]} />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <FutureWeather dayWeatherInfo={weatherInfo[2]} />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <FutureWeather dayWeatherInfo={weatherInfo[3]} />
-        </Grid>
+        {dayWeatherInfoList.map((dayWeatherInfo) => (
+          <Grid item xs={6} sm={3} key={dayWeatherInfo.id}>
+            <FutureWeather dayWeatherInfo={dayWeatherInfo} />
+          </Grid>
+        ))}
       </Grid>
     </div>
   );
