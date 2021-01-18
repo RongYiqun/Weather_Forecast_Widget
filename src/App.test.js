@@ -19,6 +19,19 @@ describe("test App", () => {
     jest.resetModules();
   });
 
+  it("render without geolocation input and user input ", async () => {
+    jest.spyOn(util, "getGeolocation").mockImplementation(() => {
+      throw new Error();
+    });
+    act(() => {
+      render(<App />);
+    });
+    const reminder = screen.getByText("No weather Infomation");
+    expect(reminder).toBeInTheDocument();
+    const image = screen.getByAltText("sample weather status");
+    expect(image).toBeInTheDocument();
+  });
+
   it("render without user input by geolocation input", async () => {
     jest
       .spyOn(util, "getGeolocation")
@@ -44,18 +57,20 @@ describe("test App", () => {
     await waitFor(() =>
       expect(api.getWeathersByWoeid).toHaveBeenCalledTimes(1)
     );
-    const weatherToday = screen.getByText("January 18, 2021");
-    const weatherFuture1 = screen.getByText("January 19, 2021");
-    const weatherFuture2 = screen.getByText("January 20, 2021");
-    const weatherFuture3 = screen.getByText("January 21, 2021");
-    const weatherFuture4 = screen.getByText("January 22, 2021");
-    const locationDescripotion = screen.getByText("Sydney,Australia");
+    const weatherToday = screen.queryByText("January 18, 2021");
+    const weatherFuture1 = screen.queryByText("January 19, 2021");
+    const weatherFuture2 = screen.queryByText("January 20, 2021");
+    const weatherFuture3 = screen.queryByText("January 21, 2021");
+    const weatherFuture4 = screen.queryByText("January 22, 2021");
+    const locationDescripotion = screen.queryByText("Sydney,Australia");
     expect(weatherToday).toBeInTheDocument();
     expect(weatherFuture1).toBeInTheDocument();
     expect(weatherFuture2).toBeInTheDocument();
     expect(weatherFuture3).toBeInTheDocument();
     expect(weatherFuture4).toBeInTheDocument();
     expect(locationDescripotion).toBeInTheDocument();
+    const reminder = screen.queryByText("No weather Infomation");
+    expect(reminder).not.toBeInTheDocument();
   });
 
   it("render with user input", async () => {
@@ -89,17 +104,19 @@ describe("test App", () => {
     await waitFor(() =>
       expect(api.getWeathersByWoeid).toHaveBeenCalledTimes(1)
     );
-    const weatherToday = screen.getByText("January 18, 2021");
-    const weatherFuture1 = screen.getByText("January 19, 2021");
-    const weatherFuture2 = screen.getByText("January 20, 2021");
-    const weatherFuture3 = screen.getByText("January 21, 2021");
-    const weatherFuture4 = screen.getByText("January 22, 2021");
-    const locationDescripotion = screen.getByText("London,England");
+    const weatherToday = screen.queryByText("January 18, 2021");
+    const weatherFuture1 = screen.queryByText("January 19, 2021");
+    const weatherFuture2 = screen.queryByText("January 20, 2021");
+    const weatherFuture3 = screen.queryByText("January 21, 2021");
+    const weatherFuture4 = screen.queryByText("January 22, 2021");
+    const locationDescripotion = screen.queryByText("London,England");
     expect(weatherToday).toBeInTheDocument();
     expect(weatherFuture1).toBeInTheDocument();
     expect(weatherFuture2).toBeInTheDocument();
     expect(weatherFuture3).toBeInTheDocument();
     expect(weatherFuture4).toBeInTheDocument();
     expect(locationDescripotion).toBeInTheDocument();
+    const reminder = screen.queryByText("No weather Infomation");
+    expect(reminder).not.toBeInTheDocument();
   });
 });

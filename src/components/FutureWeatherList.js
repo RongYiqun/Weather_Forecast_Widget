@@ -19,14 +19,12 @@ export default function FutureWeatherList({ weatherInfo }) {
   const classes = useStyles();
   const dayWeatherInfoList = weatherInfo.slice(0, 4);
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        {dayWeatherInfoList.map((dayWeatherInfo) => (
-          <Grid item xs={6} sm={3} key={dayWeatherInfo.id}>
-            <FutureWeather dayWeatherInfo={dayWeatherInfo} />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+    <Grid container spacing={3} className={classes.root}>
+      {dayWeatherInfoList.map((dayWeatherInfo) => (
+        <Grid item xs={6} sm={3} key={dayWeatherInfo.id}>
+          <FutureWeather dayWeatherInfo={dayWeatherInfo} />
+        </Grid>
+      ))}
+    </Grid>
   );
 }

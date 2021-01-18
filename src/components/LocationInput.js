@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import debounce from "lodash.debounce";
+import React, { useState, useEffect, useCallback } from "react";
+import throttle from "lodash.throttle";
 import { TextField, Container } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { searchLocation } from "../api";
 
 export default function LocationInput({
@@ -11,27 +10,24 @@ export default function LocationInput({
 }) {
   const [inputLocation, setInputLocation] = useState("");
   const [locationOptions, setLocationOptions] = useState([]);
-  const loading = useRef(false);
 
   const fetchLocationOptions = useCallback(
-    debounce(async (inputLocation) => {
-      loading.current = true;
+    throttle(async (inputLocation) => {
       try {
         const listOflocation = await searchLocation(inputLocation);
         setLocationOptions(listOflocation);
       } catch (err) {
         console.log(err);
       }
-      loading.current = false;
     }, 200),
     []
   );
 
   useEffect(() => {
-    if (inputLocation) {
+    if (inputLocation.length >= 2) {
       fetchLocationOptions(inputLocation);
     }
-  }, [inputLocation]);
+  }, [inputLocation, fetchLocationOptions]);
 
   return (
     <Container maxWidth="sm">
@@ -62,17 +58,6 @@ export default function LocationInput({
             {...params}
             label="Please input your coordinate or your city for weather information"
             variant="outlined"
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <React.Fragment>
-                  {loading.current ? (
-                    <CircularProgress color="inherit" size={20} />
-                  ) : null}
-                  {params.InputProps.endAdornment}
-                </React.Fragment>
-              ),
-            }}
           />
         )}
       />

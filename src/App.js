@@ -4,10 +4,20 @@ import LocationInput from "./components/LocationInput";
 import TodayWeather from "./components/TodayWeather";
 import FutureWeatherList from "./components/FutureWeatherList";
 import { getWeathersByWoeid, searchLocation } from "./api";
-import Loading from "./components/Loading";
-import { Container } from "@material-ui/core";
+import { Typography, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  img: {
+    height: "20%",
+    width: "20%",
+    display: "block",
+    margin: "auto",
+    marginTop: theme.spacing(5),
+  },
+}));
 
 function App() {
+  const classes = useStyles();
   const [selectedLocation, setSelectedLocation] = useState("");
   const [weatherInfo, setWeatherInfo] = useState(null); // returned weather info
   const [locationInfo, setLocationInfo] = useState(null); // returned location info
@@ -24,7 +34,7 @@ function App() {
         setWeatherInfo(consolidated_weather);
         setLocationInfo(otherInfo);
       } catch (err) {
-        console.log(err);
+        console.log("error occur");
       }
     };
     fetchWeatherByGeolocation();
@@ -48,13 +58,22 @@ function App() {
 
   return (
     <div className="App">
-      <Container maxWidth="md">
-        <LocationInput
-          selectedLocation={selectedLocation}
-          setSelectedLocation={setSelectedLocation}
-        />
-        {!weatherInfo && <Loading />}
-      </Container>
+      <LocationInput
+        selectedLocation={selectedLocation}
+        setSelectedLocation={setSelectedLocation}
+      />
+      {!weatherInfo && (
+        <>
+          <Typography variant="subtitle1" component="p" align="center">
+            No weather Infomation
+          </Typography>
+          <img
+            alt="sample weather status"
+            className={classes.img}
+            src={`/weatherIcons/c.svg`}
+          />
+        </>
+      )}
       {weatherInfo && locationInfo && (
         <TodayWeather
           todayWeatherInfo={weatherInfo[0]}
